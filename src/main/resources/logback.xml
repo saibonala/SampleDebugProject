@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration  -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user             -->
+<!--                                                                -->
+<!-- For professional support please see                            -->
+<!--    http://www.qos.ch/shop/products/professionalSupport         -->
+<!--                                                                -->
+<configuration>
+
+    <conversionRule conversionWord="tid"
+                    converterClass="com.wavemaker.tests.listeners.ThreadIdConverter" />
+    <appender name="globalFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <append>false</append>
+        <file>./logs/All.log</file>
+        <encoder>
+            <pattern>%d %p [%tid %t] %X{variable} [%c{1}] - %m%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>20</maxIndex>
+            <FileNamePattern>./logs/All.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>5MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="siftingAppender" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <evaluator class="ch.qos.logback.classic.boolex.JaninoEventEvaluator">
+                <expression>return mdc.containsKey("variable");</expression>
+            </evaluator>
+            <OnMismatch>DENY</OnMismatch>
+        </filter>
+        <!-- timeout specifies the idle time after the discriminator log fd gets released-->
+        <timeout>30000</timeout>
+        <discriminator>
+            <key>variable</key>
+            <defaultValue>All</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="testLogsAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+                <append>false</append>
+                <file>./logs/${variable}.log</file>
+                <encoder>
+                    <pattern>%d %p %t [%tid] [%c{1}] - %m%n</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <maxIndex>6</maxIndex>
+                    <FileNamePattern>./logs/${variable}.log.%i</FileNamePattern>
+                </rollingPolicy>
+                <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <maxFileSize>15MB</maxFileSize>
+                </triggeringPolicy>
+            </appender>
+        </sift>
+    </appender>
+    
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d %p %t [%tid] %X{variable} [%c{1}] - %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="globalFileAppender"/>
+        <appender-ref ref="siftingAppender"/>
+        <appender-ref ref="ConsoleAppender"/>
+    </root>
+
+    <logger name="org.apache.http.client" level="DEBUG"/>
+    <logger name="com.wavemaker" level="DEBUG"/>
+
+
+</configuration>

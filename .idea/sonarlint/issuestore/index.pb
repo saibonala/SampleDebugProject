@@ -1,0 +1,5 @@
+
+B
+wmstudio-tests.iml,6\3\63bd7ad953b6c132c592038685d63a07c032a535
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec

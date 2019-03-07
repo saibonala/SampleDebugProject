@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="testSuite2" parallel="tests">
+    <test name="TestClass1_Test2">
+        <classes>
+            <class name="com.wavemaker.tests.TestClass1">
+                <methods>
+                    <include name="testClass1_Test2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TestClass2_Test2">
+        <classes>
+            <class name="com.wavemaker.tests.TestClass2">
+                <methods>
+                    <include name="testClass2_Test2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TestClass3_Test2">
+        <classes>
+            <class name="com.wavemaker.tests.TestClass3">
+                <methods>
+                    <include name="testClass3_Test2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TestClass4_Test2">
+        <classes>
+            <class name="com.wavemaker.tests.TestClass4">
+                <methods>
+                    <include name="testClass4_Test2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="TestClass5_Test2">
+        <classes>
+            <class name="com.wavemaker.tests.TestClass5">
+                <methods>
+                    <include name="testClass5_Test2"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

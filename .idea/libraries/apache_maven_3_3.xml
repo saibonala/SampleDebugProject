@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="apache-maven-3.3">
+    <ANNOTATIONS>
+      <root url="file://E:/apache-maven-3.3.9-bin/apache-maven-3.3.9" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://E:/apache-maven-3.3.9-bin/apache-maven-3.3.9" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://E:/apache-maven-3.3.9-bin/apache-maven-3.3.9" />
+    </JAVADOC>
+    <NATIVE>
+      <root url="file://E:/apache-maven-3.3.9-bin/apache-maven-3.3.9" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://E:/apache-maven-3.3.9-bin/apache-maven-3.3.9" />
+    </SOURCES>
+    <jarDirectory url="file://E:/apache-maven-3.3.9-bin/apache-maven-3.3.9" recursive="false" />
+    <jarDirectory url="file://E:/apache-maven-3.3.9-bin/apache-maven-3.3.9" recursive="false" type="SOURCES" />
+  </library>
+</component>
